@@ -1,3 +1,5 @@
+import { GapReportForm } from "@/components/GapReportForm";
+
 export default function Home() {
   return (
     <main data-screen-label="01 Landing">
@@ -447,36 +449,7 @@ export default function Home() {
               </p>
             </div>
 
-            <form className="gap-form" action="#" method="post">
-              <div className="row">
-                <div className="field">
-                  <label className="field-label">Business name</label>
-                  <input className="field-input" placeholder="Rip City Junk Removal" />
-                </div>
-                <div className="field">
-                  <label className="field-label">City + state</label>
-                  <input className="field-input" placeholder="Portland, OR" />
-                </div>
-              </div>
-              <div className="row">
-                <div className="field">
-                  <label className="field-label">Website URL</label>
-                  <input className="field-input" placeholder="ripcityjunk.com — or 'none yet'" />
-                </div>
-                <div className="field">
-                  <label className="field-label">Best email</label>
-                  <input className="field-input" placeholder="you@ripcityjunk.com" type="email" />
-                </div>
-              </div>
-              <div className="submit-row">
-                <button type="submit" className="btn btn-primary btn-lg">
-                  Send my Gap Report <span className="arr">→</span>
-                </button>
-                <p className="micro">
-                  In your inbox within 1 business day. We don&apos;t sell or share your info — ever.
-                </p>
-              </div>
-            </form>
+            <GapReportForm />
           </div>
         </div>
       </section>
