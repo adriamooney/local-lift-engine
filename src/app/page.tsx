@@ -85,16 +85,16 @@ export default function Home() {
           <div className="container">
             <div className="trust-bar-inner">
               <div>
-                <span className="tb-label">Built on the same tech as</span>
+                <span className="tb-label">What you get (the system)</span>
               </div>
               <div>
-                <span className="tb-value">Nike</span>
+                <span className="tb-value">Premium website</span>
               </div>
               <div>
-                <span className="tb-value">Target</span>
+                <span className="tb-value">Optimized GBP</span>
               </div>
               <div>
-                <span className="tb-value">Vercel · GitHub · Stripe</span>
+                <span className="tb-value">Google Ads playbook</span>
               </div>
             </div>
           </div>
@@ -672,7 +672,7 @@ export default function Home() {
             <div>
               <h5>Get in touch</h5>
               <a href="mailto:hello@localliftengine.com">hello@localliftengine.com</a>
-              <a href="tel:5035550181">(503) 555 — 0181</a>
+              {/* <a href="tel:5035550181">(503) 555 — 0181</a> */}
             </div>
             <div>
               <h5>Start here</h5>
@@ -688,7 +688,7 @@ export default function Home() {
             </div>
           </div>
           <div className="footer-base">
-            <span>© 2026 Local Lift Engine LLC</span>
+            <span>© 2026 Local Lift Engine</span>
             <span>v1.0 · Lighthouse 96 · Loaded in 0.84s</span>
           </div>
         </div>
