@@ -3,7 +3,7 @@ export default function Home() {
     <main data-screen-label="01 Landing">
       <header className="nav">
         <div className="container nav-inner">
-          <a href="#" className="brand" style={{ textDecoration: "none", color: "inherit" }}>
+          <a href="#start" className="brand" style={{ textDecoration: "none", color: "inherit" }}>
             <span className="brand-glyph" />
             <span>
               <div className="brand-name">Local Lift Engine</div>
@@ -633,9 +633,11 @@ export default function Home() {
               <h3>Book a 15-min call.</h3>
               <p>See the demo, ask anything, find out if your city is still open. No pitch.</p>
               <a
-                href="#"
+                href="https://zcal.co/adriamooney/15min-local-lift"
                 className="btn btn-primary btn-lg"
                 style={{ background: "var(--paper-100)", color: "var(--ink-900)" }}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Book a 15-min call <span className="arr">→</span>
               </a>
