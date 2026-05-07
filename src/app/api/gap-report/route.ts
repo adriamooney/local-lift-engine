@@ -61,7 +61,7 @@ function resendUserMessage(code: string, apiMessage: string): string {
 
 export async function POST(request: Request) {
   const apiKey = readEnv("RESEND_API_KEY");
-  const contactEmail = readEnv("CONTACT_EMAIL");
+  const contactEmail = readEnv("CONTACT_EMAIL") ?? readEnv("LEAD_EMAIL_TO");
   const fromEnv = readEnv("RESEND_FROM"); // optional
   const from =
     fromEnv ||
@@ -77,7 +77,7 @@ export async function POST(request: Request) {
   }
   if (!contactEmail) {
     return NextResponse.json(
-      { error: "CONTACT_EMAIL is not configured." },
+      { error: "CONTACT_EMAIL is not configured. (Legacy support: you can also set LEAD_EMAIL_TO.)" },
       { status: 500 }
     );
   }
