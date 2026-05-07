@@ -41,11 +41,11 @@ function safeSubject(businessName: string) {
 function resendUserMessage(code: string, apiMessage: string): string {
   switch (code) {
     case "invalid_from_address":
-      return "Email sender is not allowed. In Resend, verify your domain and set RESEND_FROM to an address on that domain (not onboarding@resend.dev in production).";
+      return "Email sender is not allowed. In Resend, verify your domain and use a from address on that domain (or set RESEND_FROM explicitly).";
     case "validation_error":
     case "invalid_parameter":
     case "missing_required_field":
-      return apiMessage || "Invalid email request. Check RESEND_FROM and LEAD_EMAIL_TO in your project settings.";
+      return apiMessage || "Invalid email request. Check RESEND_API_KEY and CONTACT_EMAIL in your project settings.";
     case "invalid_api_key":
     case "missing_api_key":
     case "restricted_api_key":
@@ -55,14 +55,19 @@ function resendUserMessage(code: string, apiMessage: string): string {
     case "rate_limit_exceeded":
       return "Email quota exceeded. Try again later or upgrade Resend.";
     default:
-      return "Could not send message. Check Vercel logs and Resend dashboard. If you use onboarding@resend.dev, recipients are limited — verify localliftengine.com and use a from address on that domain.";
+      return "Could not send message. Check Vercel logs and Resend dashboard. If you use onboarding@resend.dev, recipients may be limited — verify your domain and use a from address on that domain.";
   }
 }
 
 export async function POST(request: Request) {
   const apiKey = readEnv("RESEND_API_KEY");
-  const from = readEnv("RESEND_FROM");
-  const to = readEnv("LEAD_EMAIL_TO");
+  const contactEmail = readEnv("CONTACT_EMAIL");
+  const fromEnv = readEnv("RESEND_FROM"); // optional
+  const from =
+    fromEnv ||
+    (contactEmail && /@localliftengine\.com\s*>?$/.test(contactEmail)
+      ? `Local Lift Engine <${contactEmail.replace(/[<>]/g, "").trim()}>`
+      : "Local Lift Engine <onboarding@resend.dev>");
 
   if (!apiKey) {
     return NextResponse.json(
@@ -70,9 +75,9 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-  if (!from || !to) {
+  if (!contactEmail) {
     return NextResponse.json(
-      { error: "RESEND_FROM or LEAD_EMAIL_TO is not configured." },
+      { error: "CONTACT_EMAIL is not configured." },
       { status: 500 }
     );
   }
@@ -135,7 +140,7 @@ export async function POST(request: Request) {
   try {
     const { data, error } = await resend.emails.send({
       from,
-      to,
+      to: contactEmail,
       replyTo: email,
       subject: safeSubject(businessName),
       text,
