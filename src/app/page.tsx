@@ -14,7 +14,9 @@ export default function Home() {
           </a>
           <nav className="nav-links">
             <a href="#how">How it works</a>
-            <a href="#demo">See the demo</a>
+            <a href="https://demo.localliftengine.com" target="_blank" rel="noreferrer">
+              See the demo
+            </a>
             <a href="#fit">Who it's for</a>
             <a href="#faq">FAQ</a>
             <a href="#gap" className="btn btn-primary">
@@ -344,7 +346,12 @@ export default function Home() {
                 <div className="label">Live demo · Portland, OR</div>
                 <div className="name">Rip City Junk</div>
                 <div className="where">Built in 19 hrs · Lighthouse 96</div>
-                <a href="#" className="demo-cta">
+                <a
+                  href="https://demo.localliftengine.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="demo-cta"
+                >
                   View the demo <span>↗</span>
                 </a>
               </div>
@@ -672,7 +679,9 @@ export default function Home() {
               <h5>Start here</h5>
               <a href="#gap">Get a Gap Report</a>
               <a href="#start">Book a 15-min call</a>
-              <a href="#demo">See the demo</a>
+              <a href="https://demo.localliftengine.com" target="_blank" rel="noreferrer">
+                See the demo
+              </a>
             </div>
             <div>
               <h5>The site</h5>
