@@ -382,7 +382,7 @@ export default function Home() {
               <h2 className="h-display size-section">Who this works for.</h2>
               <p className="lede" style={{ marginTop: 24 }}>
                 Local Lift Engine is built specifically for junk removal businesses in the Pacific Northwest
-                doing $200K–$2M in annual revenue, who want to stop losing local search to companies they know
+                doing $50K-$250K in annual revenue, who want to stop losing local search to companies they know
                 they can out-work.
               </p>
             </div>
@@ -403,7 +403,7 @@ export default function Home() {
                 </div>
                 <div className="crit">
                   <b>Revenue</b>
-                  <span>$200K–$2M annual</span>
+                  <span>$50K-$250K annual</span>
                 </div>
                 <div className="crit">
                   <b>Niche</b>
@@ -417,15 +417,15 @@ export default function Home() {
             </div>
             <div className="fit-card no">
               <div className="tag">— Not the right fit yet</div>
-              <h3>If you&apos;re under $100K, or a multi-location franchise.</h3>
+              <h3>If you&apos;re under $50K, or a multi-location franchise.</h3>
               <p style={{ fontSize: 15, lineHeight: 1.55, color: "var(--text-secondary)", margin: 0 }}>
-                If you&apos;re under $100K and just starting out, you need volume, not infrastructure. If you&apos;re a
+                If you&apos;re under $50K and just starting out, you need volume, not infrastructure. If you&apos;re a
                 multi-location franchise with an in-house marketing team, you have other tools available.
               </p>
               <div className="criteria">
                 <div className="crit">
                   <b>Too early</b>
-                  <span>Pre-revenue or under $100K — focus on volume first</span>
+                  <span>Pre-revenue or under $50K — focus on volume first</span>
                 </div>
                 <div className="crit">
                   <b>Too big</b>
