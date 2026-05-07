@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+export const runtime = "nodejs";
 
 type Body = {
   businessName?: string;
@@ -9,6 +9,20 @@ type Body = {
   website?: string;
   email?: string;
 };
+
+/** Vercel/UI copy-paste often adds quotes or trailing newlines */
+function readEnv(key: string): string | undefined {
+  const raw = process.env[key];
+  if (raw == null || raw === "") return undefined;
+  let v = raw.trim();
+  if (
+    (v.startsWith('"') && v.endsWith('"')) ||
+    (v.startsWith("'") && v.endsWith("'"))
+  ) {
+    v = v.slice(1, -1).trim();
+  }
+  return v || undefined;
+}
 
 function escapeHtml(s: string) {
   return s
@@ -18,16 +32,44 @@ function escapeHtml(s: string) {
     .replaceAll('"', "&quot;");
 }
 
+function safeSubject(businessName: string) {
+  const oneLine = businessName.replace(/\s+/g, " ").replace(/[\r\n]+/g, " ").trim();
+  const clipped = oneLine.slice(0, 150);
+  return `Gap Report: ${clipped || "Request"}`;
+}
+
+function resendUserMessage(code: string, apiMessage: string): string {
+  switch (code) {
+    case "invalid_from_address":
+      return "Email sender is not allowed. In Resend, verify your domain and set RESEND_FROM to an address on that domain (not onboarding@resend.dev in production).";
+    case "validation_error":
+    case "invalid_parameter":
+    case "missing_required_field":
+      return apiMessage || "Invalid email request. Check RESEND_FROM and LEAD_EMAIL_TO in your project settings.";
+    case "invalid_api_key":
+    case "missing_api_key":
+    case "restricted_api_key":
+      return "Resend API key is missing or invalid. Check RESEND_API_KEY in Vercel environment variables.";
+    case "monthly_quota_exceeded":
+    case "daily_quota_exceeded":
+    case "rate_limit_exceeded":
+      return "Email quota exceeded. Try again later or upgrade Resend.";
+    default:
+      return "Could not send message. Check Vercel logs and Resend dashboard. If you use onboarding@resend.dev, recipients are limited — verify localliftengine.com and use a from address on that domain.";
+  }
+}
+
 export async function POST(request: Request) {
-  if (!resend) {
+  const apiKey = readEnv("RESEND_API_KEY");
+  const from = readEnv("RESEND_FROM");
+  const to = readEnv("LEAD_EMAIL_TO");
+
+  if (!apiKey) {
     return NextResponse.json(
       { error: "RESEND_API_KEY is not configured." },
       { status: 500 }
     );
   }
-
-  const from = process.env.RESEND_FROM;
-  const to = process.env.LEAD_EMAIL_TO;
   if (!from || !to) {
     return NextResponse.json(
       { error: "RESEND_FROM or LEAD_EMAIL_TO is not configured." },
@@ -56,7 +98,10 @@ export async function POST(request: Request) {
 
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   if (!emailOk) {
-    return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
+    return NextResponse.json(
+      { error: "Please enter a valid email address." },
+      { status: 400 }
+    );
   }
 
   const safe = {
@@ -85,22 +130,39 @@ export async function POST(request: Request) {
     </table>
   `;
 
-  const { data, error } = await resend.emails.send({
-    from,
-    to: [to],
-    replyTo: email,
-    subject: `Gap Report: ${businessName}`,
-    text,
-    html,
-  });
+  const resend = new Resend(apiKey);
 
-  if (error) {
-    console.error("[gap-report] Resend error:", error);
+  try {
+    const { data, error } = await resend.emails.send({
+      from,
+      to,
+      replyTo: email,
+      subject: safeSubject(businessName),
+      text,
+      html,
+    });
+
+    if (error) {
+      console.error("[gap-report] Resend error:", JSON.stringify(error));
+      const hint = resendUserMessage(error.name, error.message);
+      return NextResponse.json(
+        {
+          error: hint,
+          code: error.name,
+        },
+        { status: 502 }
+      );
+    }
+
+    return NextResponse.json({ ok: true, id: data?.id });
+  } catch (err) {
+    console.error("[gap-report] Uncaught error:", err);
     return NextResponse.json(
-      { error: "Could not send message. Please try again or email us directly." },
-      { status: 502 }
+      {
+        error:
+          "Server error while sending email. Check function logs and Resend configuration.",
+      },
+      { status: 500 }
     );
   }
-
-  return NextResponse.json({ ok: true, id: data?.id });
 }

@@ -43,11 +43,11 @@ export default function Home() {
                 <a href="#gap" className="btn btn-primary btn-lg">
                   Get my free Local Search Gap Report <span className="arr">→</span>
                 </a>
-                <p className="hero-subline">
-                  1-page audit. Shows where your business is invisible online — and what&apos;s
-                  costing you calls.{" "}
-                  <b style={{ color: "var(--ink-900)" }}>Free, no pitch.</b>
-                </p>
+                <div className="hero-chips">
+                  <span className="hero-chip">Free · no pitch</span>
+                  <span className="hero-chip">In your inbox within 1 business day</span>
+                  <span className="hero-chip">Yours to keep, always</span>
+                </div>
               </div>
             </div>
             <aside className="hero-aside">
@@ -87,16 +87,20 @@ export default function Home() {
           <div className="container">
             <div className="trust-bar-inner">
               <div>
-                <span className="tb-label">What you get (the system)</span>
+                <span className="tb-num">&lt; 24h</span>
+                <span className="tb-label">Full system delivered</span>
               </div>
               <div>
-                <span className="tb-value">Premium website</span>
+                <span className="tb-num">96</span>
+                <span className="tb-label">Lighthouse score</span>
               </div>
               <div>
-                <span className="tb-value">Optimized GBP</span>
+                <span className="tb-num">$0</span>
+                <span className="tb-label">Monthly retainers</span>
               </div>
               <div>
-                <span className="tb-value">Google Ads playbook</span>
+                <span className="tb-num">3</span>
+                <span className="tb-label">Pieces. One system.</span>
               </div>
             </div>
           </div>
@@ -431,25 +435,42 @@ export default function Home() {
       </section>
 
       <section className="gap-section" id="gap">
-        <div className="container">
-          <div className="gap-grid">
-            <div>
-              <div className="marker eyebrow signal">§ 07 · Free Gap Report</div>
+        <div className="gap-split">
+          <div className="gap-panel-dark">
+            <div className="gap-panel-content">
+              <div className="marker" style={{ color: "var(--signal-300)" }}>§ 07 · Free Gap Report</div>
               <h2 className="h-display size-section" style={{ marginTop: 16 }}>
                 Not ready to talk yet? Start with a free <em>Gap Report</em>.
               </h2>
-              <p className="body-lg" style={{ marginTop: 24, maxWidth: 440 }}>
-                We&apos;ll pull real data on your business and your top three local competitors — including how your
-                website ranks, how your <b style={{ color: "var(--ink-900)" }}>Google Business Profile</b>{" "}
-                compares, and where the highest-intent local searches are going. You&apos;ll see exactly where
-                you&apos;re showing up, where they&apos;re winning, and the three biggest fixes you could make.
+              <p className="body-lg" style={{ marginTop: 24 }}>
+                Real data on your business and your top three local competitors. No pitch — just the gap.
               </p>
-              <p className="body-lg" style={{ marginTop: 16, maxWidth: 440, color: "var(--ink-700)" }}>
-                <b>One page. No pitch.</b> Yours to keep whether we ever talk or not.
-              </p>
+              <div className="gap-trust">
+                <div className="gap-trust-item">
+                  <span className="gt-plus">+</span>
+                  <span>Where your site ranks for your top local searches</span>
+                </div>
+                <div className="gap-trust-item">
+                  <span className="gt-plus">+</span>
+                  <span>How your Google Business Profile compares to your top 3 competitors</span>
+                </div>
+                <div className="gap-trust-item">
+                  <span className="gt-plus">+</span>
+                  <span>The 3 highest-leverage fixes for your exact situation</span>
+                </div>
+              </div>
+              <p className="gap-trust-note">One page. No pitch. Yours to keep whether we ever talk or not.</p>
             </div>
+          </div>
 
-            <GapReportForm />
+          <div className="gap-panel-light">
+            <div className="gap-panel-content">
+              <div className="gap-form-head">
+                <h3>Get my free Gap Report</h3>
+                <p>We&apos;ll send it within 1 business day</p>
+              </div>
+              <GapReportForm />
+            </div>
           </div>
         </div>
       </section>
