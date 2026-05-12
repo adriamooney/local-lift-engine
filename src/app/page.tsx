@@ -553,19 +553,45 @@ export default function Home() {
               </div>
             </div>
             <div className="demo-stage">
-              <div className="demo-overlay">
-                <div className="label">Live demo · Portland, OR</div>
-                <div className="name">Portland Best Junk Removal</div>
-                <div className="where">Built in 19 hrs · Lighthouse 96</div>
-                <a
-                  href="https://demo.localliftengine.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="demo-cta"
-                >
-                  View the demo <span>↗</span>
-                </a>
+              <div className="demo-mini-site" aria-hidden="true">
+                <div className="dms-nav">
+                  <div className="dms-logo" />
+                  <div className="dms-nav-links" />
+                </div>
+                <div className="dms-hero">
+                  <div className="dms-eyebrow" />
+                  <div className="dms-h1" />
+                  <div className="dms-h1 dms-w70" />
+                  <div className="dms-body" />
+                  <div className="dms-body dms-w55" />
+                  <div className="dms-cta-row">
+                    <div className="dms-btn" />
+                    <div className="dms-btn-ghost" />
+                  </div>
+                </div>
+                <div className="dms-bar">
+                  <div className="dms-stat" /><div className="dms-stat" />
+                  <div className="dms-stat" /><div className="dms-stat" />
+                </div>
+                <div className="dms-dark">
+                  <div className="dms-dk-text" />
+                  <div className="dms-dk-text dms-w65" />
+                  <div className="dms-dk-text dms-w45" />
+                </div>
+                <div className="dms-light">
+                  <div className="dms-row3">
+                    <div className="dms-card" /><div className="dms-card" /><div className="dms-card" />
+                  </div>
+                </div>
               </div>
+              <a
+                href="https://demo.localliftengine.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="demo-live-btn"
+              >
+                Open live site <span>↗</span>
+              </a>
             </div>
           </div>
 
